@@ -22,33 +22,22 @@ public class InputView {
 
     private final Scanner scanner;
 
-    public void requestPurchaseAmount() {
-        System.out.println("구입 금액을 입력해주세요.");
-    }
-
     public LottoGenerateStrategy requestLottoStrategy(Money money) {
-        System.out.println("자동으로 구매하시겠습니까? (y or n)");
         String input = scanner.nextLine();
         int lottoCount = money.divide(LottoTicket.PRICE);
         if (input.toUpperCase(Locale.ROOT).equals("Y")) {
             return new RandomGenerateStrategy(lottoCount);
         }
         if (input.toUpperCase(Locale.ROOT).equals("N")) {
-            requestLottoNumberMessage();
             return new SelfGenerateStrategy(requestLottoNumber(lottoCount));
         }
         throw new IllegalArgumentException("y 또는 n 으로 입력해주세요.");
-    }
-
-    public void requestLottoNumberMessage() {
-        System.out.println("6개의 숫자를 입력해주세요. (공백으로 구분)");
     }
 
     public List<Integer> requestLottoNumber() {
         String input = scanner.nextLine();
         return Arrays.stream(input.split(" ")).map(Integer::valueOf)
                 .collect(Collectors.toList());
-
     }
 
     public List<LottoNumbers> requestLottoNumber(int count) {

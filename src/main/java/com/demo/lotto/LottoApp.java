@@ -16,18 +16,20 @@ public class LottoApp {
 
     public void run() {
         Money money = InputView.requireValidInput(this::inputMoney, outputView::printMessage);
+
         LottoTicket lottoTicket = InputView.requireValidInput(() -> this.buyTicket(money), outputView::printMessage);
 
 
     }
 
     private Money inputMoney() {
-        inputView.requestPurchaseAmount();
+        outputView.requestPurchaseAmount();
         String inputAmount = inputView.inputAmount();
         return Money.of(Long.parseLong(inputAmount));
     }
 
     private LottoTicket buyTicket(Money money) {
+        outputView.requestLottoStrategy();
         LottoGenerateStrategy lottoGenerateStrategy = inputView.requestLottoStrategy(money);
         List<LottoNumbers> lottoNumbers = lottoGenerateStrategy.generate();
         return LottoTicket.of(lottoNumbers);
