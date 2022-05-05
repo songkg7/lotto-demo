@@ -1,10 +1,10 @@
 package com.demo.lotto.view;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import com.demo.lotto.domain.lotto.LottoNumbers;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Scanner;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,9 +24,9 @@ class InputViewTest {
         String inputNumber = "1 2 3 4 5 6" + INPUT_NEW_LINE;
         InputView inputView = createInputView(inputNumber);
 
-        LottoNumbers lottoNumbers = inputView.requestLottoNumber();
+        List<Integer> lottoNumbers = inputView.requestLottoNumber();
 
-        assertThat(lottoNumbers.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6);
+        assertThat(lottoNumbers).containsExactly(1, 2, 3, 4, 5, 6);
     }
 
     public InputView createInputView(String input) {

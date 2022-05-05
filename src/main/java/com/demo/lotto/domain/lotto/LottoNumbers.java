@@ -8,8 +8,8 @@ public class LottoNumbers {
 
     List<Integer> numbers;
 
-    public static LottoNumbers of(List<Integer> list) {
-        return new LottoNumbers(list);
+    public static LottoNumbers of(List<Integer> numbers) {
+        return new LottoNumbers(numbers);
     }
 
 }

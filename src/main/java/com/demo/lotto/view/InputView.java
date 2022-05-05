@@ -1,6 +1,8 @@
 package com.demo.lotto.view;
 
+import com.demo.lotto.domain.Money;
 import com.demo.lotto.domain.lotto.LottoNumbers;
+import com.demo.lotto.domain.lotto.LottoTicket;
 import com.demo.lotto.domain.lotto.strategy.RandomGenerateStrategy;
 import com.demo.lotto.domain.lotto.strategy.LottoGenerateStrategy;
 import com.demo.lotto.domain.lotto.strategy.SelfGenerateStrategy;
@@ -12,6 +14,7 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -23,32 +26,35 @@ public class InputView {
         System.out.println("구입 금액을 입력해주세요.");
     }
 
-    public LottoGenerateStrategy requestAutoLotto() {
+    public LottoGenerateStrategy requestLottoStrategy(Money money) {
         System.out.println("자동으로 구매하시겠습니까? (y or n)");
         String input = scanner.nextLine();
+        int lottoCount = money.divide(LottoTicket.PRICE);
         if (input.toUpperCase(Locale.ROOT).equals("Y")) {
-            return new RandomGenerateStrategy();
+            return new RandomGenerateStrategy(lottoCount);
         }
         if (input.toUpperCase(Locale.ROOT).equals("N")) {
-            return new SelfGenerateStrategy();
+            requestLottoNumberMessage();
+            return new SelfGenerateStrategy(requestLottoNumber(lottoCount));
         }
         throw new IllegalArgumentException("y 또는 n 으로 입력해주세요.");
     }
 
-    public List<LottoNumbers> requestLottoNumbers(int count) {
+    public void requestLottoNumberMessage() {
         System.out.println("6개의 숫자를 입력해주세요. (공백으로 구분)");
-        List<LottoNumbers> lottoNumbers = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            lottoNumbers.add(requestLottoNumber());
-        }
-        return lottoNumbers;
     }
 
-    public LottoNumbers requestLottoNumber() {
+    public List<Integer> requestLottoNumber() {
         String input = scanner.nextLine();
-        List<Integer> collect = Arrays.stream(input.split(" ")).map(Integer::valueOf)
+        return Arrays.stream(input.split(" ")).map(Integer::valueOf)
                 .collect(Collectors.toList());
-        return LottoNumbers.of(collect);
+
+    }
+
+    public List<LottoNumbers> requestLottoNumber(int count) {
+        return IntStream.range(0, count)
+                .mapToObj(i -> LottoNumbers.of(requestLottoNumber()))
+                .collect(Collectors.toList());
     }
 
     public static <T> T requireValidInput(Supplier<T> input, Consumer<String> errorMessageConsumer) {
