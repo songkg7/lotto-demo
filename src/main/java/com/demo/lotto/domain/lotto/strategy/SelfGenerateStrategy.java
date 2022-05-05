@@ -11,6 +11,6 @@ public class SelfGenerateStrategy implements LottoGenerateStrategy {
 
     @Override
     public List<LottoNumbers> generate() {
-        return null;
+        return lottoNumbersGroup;
     }
 }

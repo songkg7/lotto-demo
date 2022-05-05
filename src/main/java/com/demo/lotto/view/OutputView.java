@@ -1,5 +1,7 @@
 package com.demo.lotto.view;
 
+import com.demo.lotto.domain.lotto.LottoTicket;
+
 public class OutputView {
 
     public void printMessage(String message) {
@@ -18,4 +20,7 @@ public class OutputView {
         System.out.println("6개의 숫자를 입력해주세요. (공백으로 구분)");
     }
 
+    public void printLottoTicket(LottoTicket lottoTicket) {
+        System.out.println(lottoTicket);
+    }
 }
