@@ -6,6 +6,8 @@ import lombok.Value;
 @Value
 public class LottoNumbers {
 
+    public static final int COUNT = 6;
+
     List<Integer> numbers;
 
     public static LottoNumbers of(List<Integer> numbers) {

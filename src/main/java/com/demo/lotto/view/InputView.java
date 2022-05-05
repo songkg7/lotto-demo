@@ -22,9 +22,8 @@ public class InputView {
 
     private final Scanner scanner;
 
-    public LottoGenerateStrategy requestLottoStrategy(Money money) {
+    public LottoGenerateStrategy requestLottoStrategy(int lottoCount) {
         String input = scanner.nextLine();
-        int lottoCount = money.divide(LottoTicket.PRICE);
         if (input.toUpperCase(Locale.ROOT).equals("Y")) {
             return new RandomGenerateStrategy(lottoCount);
         }

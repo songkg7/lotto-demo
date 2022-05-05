@@ -1,4 +1,4 @@
-package com.demo.lotto;
+package com.demo.lotto.controller;
 
 import com.demo.lotto.domain.Money;
 import com.demo.lotto.domain.lotto.LottoNumbers;
@@ -16,8 +16,8 @@ public class LottoApp {
 
     public void run() {
         Money money = InputView.requireValidInput(this::inputMoney, outputView::printMessage);
-
-        LottoTicket lottoTicket = InputView.requireValidInput(() -> this.buyTicket(money), outputView::printMessage);
+        int lottoCount = money.divide(LottoTicket.PRICE);
+        LottoTicket lottoTicket = InputView.requireValidInput(() -> this.buyTicket(lottoCount), outputView::printMessage);
 
 
     }
@@ -28,9 +28,9 @@ public class LottoApp {
         return Money.of(Long.parseLong(inputAmount));
     }
 
-    private LottoTicket buyTicket(Money money) {
+    private LottoTicket buyTicket(int count) {
         outputView.requestLottoStrategy();
-        LottoGenerateStrategy lottoGenerateStrategy = inputView.requestLottoStrategy(money);
+        LottoGenerateStrategy lottoGenerateStrategy = inputView.requestLottoStrategy(count);
         List<LottoNumbers> lottoNumbers = lottoGenerateStrategy.generate();
         return LottoTicket.of(lottoNumbers);
     }
