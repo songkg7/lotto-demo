@@ -3,6 +3,7 @@ package com.demo.lotto.domain.lotto.strategy;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.demo.lotto.domain.lotto.LottoNumber;
 import com.demo.lotto.domain.lotto.LottoNumbers;
 import java.util.HashSet;
 import java.util.List;
@@ -22,8 +23,8 @@ class RandomGenerateStrategyTest {
         List<LottoNumbers> lottoNumbersGroup = randomGenerateStrategy.generate();
 
         assertThat(lottoNumbersGroup).hasSize(ticketCount);
-        List<Integer> numbers = lottoNumbersGroup.get(0).getNumbers();
-        Set<Integer> set = new HashSet<>(numbers);
+        List<LottoNumber> numbers = lottoNumbersGroup.get(0).getNumbers();
+        Set<LottoNumber> set = new HashSet<>(numbers);
         assertThat(set).hasSize(6);
     }
 }

@@ -28,6 +28,7 @@ public class InputView {
             return new RandomGenerateStrategy(lottoCount);
         }
         if (input.toUpperCase(Locale.ROOT).equals("N")) {
+            System.out.println("6개의 숫자를 입력해주세요 (공백으로 구분)");
             return new SelfGenerateStrategy(requestLottoNumber(lottoCount));
         }
         throw new IllegalArgumentException("y 또는 n 으로 입력해주세요.");
@@ -39,9 +40,9 @@ public class InputView {
                 .collect(Collectors.toList());
     }
 
-    public List<LottoNumbers> requestLottoNumber(int count) {
+    public List<List<Integer>> requestLottoNumber(int count) {
         return IntStream.range(0, count)
-                .mapToObj(i -> LottoNumbers.of(requestLottoNumber()))
+                .mapToObj(i -> requestLottoNumber())
                 .collect(Collectors.toList());
     }
 
