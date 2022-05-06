@@ -17,7 +17,9 @@ public class LottoApp {
     public void run() {
         Money money = InputView.requireValidInput(this::inputMoney, outputView::printMessage);
         int lottoCount = money.divide(LottoTicket.PRICE);
+
         LottoTicket lottoTicket = InputView.requireValidInput(() -> this.buyTicket(lottoCount), outputView::printMessage);
+        outputView.printLottoTicket(lottoTicket);
 
 
     }
@@ -33,11 +35,6 @@ public class LottoApp {
         LottoGenerateStrategy lottoGenerateStrategy = inputView.requestLottoStrategy(count);
         List<LottoNumbers> lottoNumbers = lottoGenerateStrategy.generate();
         return LottoTicket.of(lottoNumbers);
-    }
-
-    public LottoNumbers inputLottoNumbers() {
-        List<Integer> integers = inputView.requestLottoNumber();
-        return LottoNumbers.of(integers);
     }
 
 }

@@ -14,6 +14,7 @@ public class SelfGenerateStrategy implements LottoGenerateStrategy {
     public List<LottoNumbers> generate() {
         return lottoNumbersGroup.stream()
                 .map(LottoNumbers::of)
+                .filter(LottoNumbers::isUnique)
                 .collect(Collectors.toList());
     }
 }

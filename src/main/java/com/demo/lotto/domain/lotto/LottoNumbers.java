@@ -19,4 +19,12 @@ public class LottoNumbers {
         return new LottoNumbers(collect);
     }
 
+    public boolean isUnique() {
+        long count = numbers.stream().distinct().count();
+        if (numbers.size() != count) {
+            throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
+        }
+        return true;
+    }
+
 }
