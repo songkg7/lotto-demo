@@ -23,4 +23,12 @@ public class OutputView {
     public void printLottoTicket(LottoTicket lottoTicket) {
         System.out.println(lottoTicket);
     }
+
+    public void requestManualCount() {
+        System.out.println("수동으로 구매할 로또 개수를 입력해주세요.");
+    }
+
+    public void requestManualNumber() {
+        System.out.println("로또 번호를 입력해주세요.");
+    }
 }

@@ -1,9 +1,10 @@
 package com.demo.lotto.controller;
 
 import com.demo.lotto.domain.Money;
-import com.demo.lotto.domain.lotto.LottoNumbers;
+import com.demo.lotto.domain.lotto.LottoCount;
 import com.demo.lotto.domain.lotto.LottoTicket;
-import com.demo.lotto.domain.lotto.strategy.LottoGenerateStrategy;
+import com.demo.lotto.domain.lotto.strategy.ManualGenerateStrategy;
+import com.demo.lotto.domain.lotto.strategy.RandomGenerateStrategy;
 import com.demo.lotto.view.InputView;
 import com.demo.lotto.view.OutputView;
 import java.util.List;
@@ -16,25 +17,46 @@ public class LottoApp {
 
     public void run() {
         Money money = InputView.requireValidInput(this::inputMoney, outputView::printMessage);
-        int lottoCount = money.divide(LottoTicket.PRICE);
+        LottoCount lottoCount = InputView.requireValidInput(() -> inputLottoCount(money), outputView::printMessage);
 
         LottoTicket lottoTicket = InputView.requireValidInput(() -> this.buyTicket(lottoCount), outputView::printMessage);
         outputView.printLottoTicket(lottoTicket);
+
+        // 당첨 번호 입력
 
 
     }
 
     private Money inputMoney() {
-        outputView.requestPurchaseAmount();
-        String inputAmount = inputView.inputAmount();
-        return Money.of(Long.parseLong(inputAmount));
+        Long amount = inputPurchaseAmount();
+        return Money.of(amount);
     }
 
-    private LottoTicket buyTicket(int count) {
-        outputView.requestLottoStrategy();
-        LottoGenerateStrategy lottoGenerateStrategy = inputView.requestLottoStrategy(count);
-        List<LottoNumbers> lottoNumbers = lottoGenerateStrategy.generate();
-        return LottoTicket.of(lottoNumbers);
+    private Long inputPurchaseAmount() {
+        outputView.requestPurchaseAmount();
+        return inputView.requestLong();
+    }
+
+    private LottoCount inputLottoCount(Money money) {
+        int manualCount = inputManualCount();
+        return LottoCount.of(money, manualCount);
+    }
+
+    private int inputManualCount() {
+        outputView.requestManualCount();
+        return inputView.requestManualCount();
+    }
+
+    private LottoTicket buyTicket(LottoCount lottoCount) {
+        List<List<Integer>> lottoNumbersGroup = inputManualLottoNumber(lottoCount.getManualCount());
+        ManualGenerateStrategy manualGenerateStrategy = new ManualGenerateStrategy(lottoNumbersGroup);
+        RandomGenerateStrategy randomGenerateStrategy = new RandomGenerateStrategy(lottoCount.getAutoCount());
+        return LottoTicket.from(manualGenerateStrategy, randomGenerateStrategy);
+    }
+
+    private List<List<Integer>> inputManualLottoNumber(int manualCount) {
+        outputView.requestManualNumber();
+        return inputView.requestLottoNumber(manualCount);
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class SelfGenerateStrategy implements LottoGenerateStrategy {
+public class ManualGenerateStrategy implements LottoGenerateStrategy {
 
     private final List<List<Integer>> lottoNumbersGroup;
 
