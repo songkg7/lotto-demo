@@ -2,6 +2,7 @@ package com.demo.lotto.controller;
 
 import com.demo.lotto.domain.Money;
 import com.demo.lotto.domain.lotto.LottoCount;
+import com.demo.lotto.domain.lotto.LottoResult;
 import com.demo.lotto.domain.lotto.LottoTicket;
 import com.demo.lotto.domain.lotto.strategy.ManualGenerateStrategy;
 import com.demo.lotto.domain.lotto.strategy.RandomGenerateStrategy;
@@ -19,11 +20,10 @@ public class LottoApp {
         Money money = InputView.requireValidInput(this::inputMoney, outputView::printMessage);
         LottoCount lottoCount = InputView.requireValidInput(() -> inputLottoCount(money), outputView::printMessage);
 
-        LottoTicket lottoTicket = InputView.requireValidInput(() -> this.buyTicket(lottoCount), outputView::printMessage);
+        LottoTicket lottoTicket = InputView.requireValidInput(() -> buyTicket(lottoCount), outputView::printMessage);
         outputView.printLottoTicket(lottoTicket);
 
-        // 당첨 번호 입력
-
+        LottoResult lottoResult = InputView.requireValidInput(() -> reporting(lottoTicket), outputView::printMessage);
 
     }
 
@@ -57,6 +57,16 @@ public class LottoApp {
     private List<List<Integer>> inputManualLottoNumber(int manualCount) {
         outputView.requestManualNumber();
         return inputView.requestLottoNumber(manualCount);
+    }
+
+    private LottoResult reporting(LottoTicket lottoTicket) {
+        List<Integer> winningNumber = inputWinningNumber();
+        return LottoResult.of(lottoTicket, winningNumber);
+    }
+
+    private List<Integer> inputWinningNumber() {
+        outputView.requestWinningNumber();
+        return inputView.requestLottoNumber();
     }
 
 }

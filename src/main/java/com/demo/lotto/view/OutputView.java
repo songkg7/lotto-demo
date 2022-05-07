@@ -31,4 +31,8 @@ public class OutputView {
     public void requestManualNumber() {
         System.out.println("로또 번호를 입력해주세요.");
     }
+
+    public void requestWinningNumber() {
+        System.out.println("당첨 번호를 입력해주세요.");
+    }
 }
