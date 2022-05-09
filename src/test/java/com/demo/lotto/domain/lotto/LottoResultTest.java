@@ -1,7 +1,5 @@
 package com.demo.lotto.domain.lotto;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.demo.lotto.view.InputView;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -17,7 +15,7 @@ class LottoResultTest {
     void compareWinningNumber() {
         String inputNumber = "1 2 3 4 5 6";
         InputView inputView = createInputView(inputNumber);
-        List<Integer> numbers = inputView.requestLottoNumber();
+        List<Integer> numbers = inputView.inputLottoNumber();
 
         LottoNumbers inputNumbers = LottoNumbers.of(numbers);
 

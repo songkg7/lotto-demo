@@ -2,6 +2,7 @@ package com.demo.lotto.controller;
 
 import com.demo.lotto.domain.Money;
 import com.demo.lotto.domain.lotto.LottoCount;
+import com.demo.lotto.domain.lotto.LottoNumber;
 import com.demo.lotto.domain.lotto.LottoResult;
 import com.demo.lotto.domain.lotto.LottoTicket;
 import com.demo.lotto.domain.lotto.strategy.ManualGenerateStrategy;
@@ -34,7 +35,7 @@ public class LottoApp {
 
     private Long inputPurchaseAmount() {
         outputView.requestPurchaseAmount();
-        return inputView.requestLong();
+        return inputView.inputLong();
     }
 
     private LottoCount inputLottoCount(Money money) {
@@ -44,7 +45,7 @@ public class LottoApp {
 
     private int inputManualCount() {
         outputView.requestManualCount();
-        return inputView.requestManualCount();
+        return inputView.inputManualCount();
     }
 
     private LottoTicket buyTicket(LottoCount lottoCount) {
@@ -56,17 +57,23 @@ public class LottoApp {
 
     private List<List<Integer>> inputManualLottoNumber(int manualCount) {
         outputView.requestManualNumber();
-        return inputView.requestLottoNumber(manualCount);
+        return inputView.inputLottoNumber(manualCount);
     }
 
     private LottoResult reporting(LottoTicket lottoTicket) {
         List<Integer> winningNumber = inputWinningNumber();
+        LottoNumber bonusBall = inputBonusBall();
         return LottoResult.of(lottoTicket, winningNumber);
     }
 
     private List<Integer> inputWinningNumber() {
         outputView.requestWinningNumber();
-        return inputView.requestLottoNumber();
+        return inputView.inputLottoNumber();
+    }
+
+    private LottoNumber inputBonusBall() {
+        outputView.requestBonusBall();
+        return LottoNumber.of(inputView.inputNumber());
     }
 
 }

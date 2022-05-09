@@ -24,7 +24,7 @@ class InputViewTest {
         String inputNumber = "1 2 3 4 5 6" + INPUT_NEW_LINE;
         InputView inputView = createInputView(inputNumber);
 
-        List<Integer> lottoNumbers = inputView.requestLottoNumber();
+        List<Integer> lottoNumbers = inputView.inputLottoNumber();
 
         assertThat(lottoNumbers).containsExactly(1, 2, 3, 4, 5, 6);
     }

@@ -14,13 +14,13 @@ public class InputView {
 
     private final Scanner scanner;
 
-    public List<List<Integer>> requestLottoNumber(int count) {
+    public List<List<Integer>> inputLottoNumber(int count) {
         return IntStream.range(0, count)
-                .mapToObj(i -> requestLottoNumber())
+                .mapToObj(i -> inputLottoNumber())
                 .collect(Collectors.toList());
     }
 
-    public List<Integer> requestLottoNumber() {
+    public List<Integer> inputLottoNumber() {
         String input = scanner.nextLine();
         return Stream.of(input.split(" "))
                 .map(Integer::valueOf)
@@ -36,11 +36,11 @@ public class InputView {
         }
     }
 
-    public int requestManualCount() {
+    public int inputManualCount() {
         return inputNumber();
     }
 
-    private int inputNumber() {
+    public int inputNumber() {
         return Integer.parseInt(inputString());
     }
 
@@ -48,7 +48,7 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public Long requestLong() {
+    public Long inputLong() {
         return Long.parseLong(inputString());
     }
 }
