@@ -13,8 +13,8 @@ public class LottoResult {
         return new LottoResult(lottoTicket, winningNumbers);
     }
 
-    private void compareWinningNumber() {
-
+    public Tear compareWinningNumber() {
+        return null;
     }
 
 }
