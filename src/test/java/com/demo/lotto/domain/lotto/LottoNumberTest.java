@@ -2,24 +2,35 @@ package com.demo.lotto.domain.lotto;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class LottoNumberTest {
 
-    @ParameterizedTest
-    @ValueSource(ints = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 40, 41, 42, 43, 44, 45 })
-    @DisplayName("1 에서 45 까지의 숫자는 lotto 번호를 정상적으로 생성할 수 있다.")
-    void validNumber(int number) {
-        LottoNumber lottoNumber = LottoNumber.of(number);
-        boolean b = lottoNumber.validNumber();
+    @TestFactory
+    Stream<DynamicTest> validNumber() {
+        List<Integer> numbers = IntStream.rangeClosed(1, 45)
+                .boxed()
+                .collect(Collectors.toList());
 
-        assertThat(lottoNumber).isNotNull();
-        assertThat(b).isTrue();
+        return numbers.stream()
+                .map(number -> dynamicTest(number + "가 45 이하인지 검사한다.",
+                        () -> {
+                            LottoNumber lottoNumber = LottoNumber.of(number);
+                            boolean b = lottoNumber.validNumber();
+                            assertThat(b).isTrue();
+                        }));
     }
 
     @ParameterizedTest
