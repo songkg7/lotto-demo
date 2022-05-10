@@ -27,4 +27,8 @@ public class LottoNumbers {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return numbers.toString();
+    }
 }

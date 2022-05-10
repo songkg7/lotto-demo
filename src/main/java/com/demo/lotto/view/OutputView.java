@@ -1,5 +1,6 @@
 package com.demo.lotto.view;
 
+import com.demo.lotto.domain.lotto.LottoNumbers;
 import com.demo.lotto.domain.lotto.LottoTicket;
 
 public class OutputView {
@@ -21,7 +22,9 @@ public class OutputView {
     }
 
     public void printLottoTicket(LottoTicket lottoTicket) {
-        System.out.println(lottoTicket);
+        for (LottoNumbers lottoNumbers : lottoTicket.getLottoNumbersGroup()) {
+            System.out.println(lottoNumbers);
+        }
     }
 
     public void requestManualCount() {
