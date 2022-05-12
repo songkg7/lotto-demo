@@ -3,8 +3,10 @@ package com.demo.lotto.controller;
 import com.demo.lotto.domain.Money;
 import com.demo.lotto.domain.lotto.LottoCount;
 import com.demo.lotto.domain.lotto.LottoNumber;
+import com.demo.lotto.domain.lotto.LottoNumbers;
 import com.demo.lotto.domain.lotto.LottoResult;
 import com.demo.lotto.domain.lotto.LottoTicket;
+import com.demo.lotto.domain.lotto.WinningNumbers;
 import com.demo.lotto.domain.lotto.strategy.ManualGenerateStrategy;
 import com.demo.lotto.domain.lotto.strategy.RandomGenerateStrategy;
 import com.demo.lotto.view.InputView;
@@ -61,9 +63,9 @@ public class LottoApp {
     }
 
     private LottoResult reporting(LottoTicket lottoTicket) {
-        List<Integer> winningNumber = inputWinningNumber();
+        LottoNumbers winningNumber = LottoNumbers.of(inputWinningNumber());
         LottoNumber bonusBall = inputBonusBall();
-        return LottoResult.of(lottoTicket, winningNumber);
+        return LottoResult.of(lottoTicket, WinningNumbers.of(winningNumber, bonusBall));
     }
 
     private List<Integer> inputWinningNumber() {

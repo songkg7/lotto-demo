@@ -1,6 +1,7 @@
 package com.demo.lotto.domain.lotto;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import lombok.Value;
 
@@ -25,6 +26,18 @@ public class LottoNumbers {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
         return true;
+    }
+
+    public int hitCount(LottoNumbers winningNumbers) {
+        AtomicInteger count = new AtomicInteger();
+        winningNumbers.numbers.forEach(lottoNumber ->
+                numbers.forEach(number -> {
+                    if (lottoNumber.equals(number)) {
+                        count.getAndIncrement();
+                    }
+                }));
+
+        return count.get();
     }
 
     @Override

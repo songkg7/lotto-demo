@@ -15,13 +15,13 @@ class LottoResultTest {
     void compareWinningNumber() {
         String inputNumber = "1 2 3 4 5 6";
         InputView inputView = createInputView(inputNumber);
-        List<Integer> numbers = inputView.inputLottoNumber();
 
-        LottoNumbers inputNumbers = LottoNumbers.of(numbers);
+        LottoNumbers inputNumbers = LottoNumbers.of(inputView.inputLottoNumber());
 
         LottoTicket lottoTicket = LottoTicket.of(List.of(inputNumbers));
 
-        LottoResult firstResult = LottoResult.of(lottoTicket, numbers);
+        LottoNumber bonusBall = LottoNumber.of(7);
+        LottoResult firstResult = LottoResult.of(lottoTicket, WinningNumbers.of(inputNumbers, bonusBall));
         Tear tear = firstResult.compareWinningNumber();
     }
 

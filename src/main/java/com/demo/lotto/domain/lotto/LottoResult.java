@@ -7,13 +7,18 @@ import lombok.Value;
 public class LottoResult {
 
     LottoTicket lottoTicket;
-    List<Integer> winningNumbers;
+    WinningNumbers winningNumbers;
 
-    public static LottoResult of(LottoTicket lottoTicket, List<Integer> winningNumbers) {
+    public static LottoResult of(LottoTicket lottoTicket, WinningNumbers winningNumbers) {
         return new LottoResult(lottoTicket, winningNumbers);
     }
 
     public Tear compareWinningNumber() {
+        List<LottoNumbers> lottoNumbersGroup = lottoTicket.getLottoNumbersGroup();
+        LottoNumbers numbers = winningNumbers.getNumbers();
+
+
+
         return null;
     }
 
